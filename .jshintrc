@@ -1,0 +1,7 @@
+{
+  "eqeqeq": true,
+  "esversion": 6,
+  "latedef": "nofunc",
+  "node": true,
+  "unused": true
+}
