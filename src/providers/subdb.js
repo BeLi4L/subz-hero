@@ -17,20 +17,7 @@ module.exports = {
  */
 function downloadSubtitles(file) {
   return computeHash(file)
-    .then(function(hash) {
-      return request({
-        method: 'GET',
-        uri: SUBDB_API_URL,
-        qs: {
-          action: 'download',
-          hash: hash,
-          language: 'en'
-        },
-        headers: {
-          'User-Agent': 'SubDB/1.0 (subz-hero/0.1; https://github.com/BeLi4L/subz-hero)'
-        }
-      });
-    });
+    .then(downloadSubtitlesByHash);
 }
 
 /**
@@ -85,4 +72,25 @@ function md5hex(buffer) {
     .createHash('md5')
     .update(buffer)
     .digest('hex');
+}
+
+/**
+ * Download subtitles for the given hash.
+ * 
+ * @param {string} hash - a hex string that identifies a file
+ * @returns {Promise<string>} the subtitles, formatted as .srt
+ */
+function downloadSubtitlesByHash(hash) {
+  return request({
+    method: 'GET',
+    uri: SUBDB_API_URL,
+    qs: {
+      action: 'download',
+      hash: hash,
+      language: 'en'
+    },
+    headers: {
+      'User-Agent': 'SubDB/1.0 (subz-hero/0.1; https://github.com/BeLi4L/subz-hero)'
+    }
+  });
 }
