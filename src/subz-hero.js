@@ -1,7 +1,8 @@
 var subdb = require('./providers/subdb');
+var subscene = require('./providers/subscene');
 
-subdb
-  .downloadSubtitles('D:/Films/Enron, the Smartest Guys in the Room.avi')
+subscene
+  .downloadSubtitles('D:/Films/Old Boy/Old Boy.mkv')
   .then(function(subtitles) {
     console.log(subtitles);
   })
