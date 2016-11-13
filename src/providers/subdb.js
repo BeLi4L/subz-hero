@@ -3,7 +3,7 @@ var Promise = require('bluebird');
 var fs = Promise.promisifyAll(require('fs'));
 var request = require('request-promise');
 
-const API_URL = 'http://api.thesubdb.com';
+const SUBDB_API_URL = 'http://api.thesubdb.com';
 
 module.exports = {
   downloadSubtitles: downloadSubtitles
@@ -20,7 +20,7 @@ function downloadSubtitles(file) {
     .then(function(hash) {
       return request({
         method: 'GET',
-        uri: API_URL,
+        uri: SUBDB_API_URL,
         qs: {
           action: 'download',
           hash: hash,
