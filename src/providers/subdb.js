@@ -28,37 +28,59 @@ function downloadSubtitles(file) {
  *                            first 64kB and the last 64kB of the given file
  */
 function computeHash(file) {
+  return getFileSize(file)
+    .then(function(filesize) {
+      var chunkSize = 64 * 1024;
+      var firstBytesPromise = readBytes({
+        file: file,
+        start: 0,
+        chunkSize: chunkSize
+      });
+      var lastBytesPromise = readBytes({
+        file: file,
+        start: filesize - chunkSize,
+        chunkSize: chunkSize
+      });
+      return Promise.all([firstBytesPromise, lastBytesPromise]);
+    })
+    .then(Buffer.concat)
+    .then(md5hex);
+}
+
+/**
+ * Retrieve the size of a file.
+ * 
+ * @param {string} file - path to a file
+ * @returns {Promise<number>} the size of the given file
+ */
+function getFileSize(file) {
+  return fs
+    .statAsync(file)
+    .then(stats => stats.size);
+} 
+
+/**
+ * Read {chunkSize} bytes from the given {file}, starting from byte number {start}.
+ * 
+ * @param {string} file      - path to a file
+ * @param {number} start     - where to start reading from
+ * @param {number} chunkSize - number of bytes to read
+ * @returns {Promise<Buffer>} a buffer
+ */
+function readBytes({file, start, chunkSize}) {
+  var buffer = new Buffer(chunkSize);
   return fs
     .openAsync(file, 'r')
     .then(function(fileDescriptor) {
-      return fs
-        .fstatAsync(fileDescriptor)
-        .then(function(stats) {
-          var fileSize = stats.size;
-          var chunkSize = 64 * 1024;
-          var buffer = new Buffer(2 * chunkSize);
-
-          var first64kBPromise = fs.readAsync(
-            fileDescriptor,
-            buffer,              // buffer to write to
-            0,                   // offset in the buffer to start writing at
-            chunkSize,           // number of bytes to read
-            0                    // where to begin reading from in the file
-          );
-          var last64kBPromise = fs.readAsync(
-            fileDescriptor,
-            buffer,              // buffer to write to
-            chunkSize,           // offset in the buffer to start writing at
-            chunkSize,           // number of bytes to read
-            fileSize - chunkSize // where to begin reading from in the file
-          );
-
-          return Promise
-            .all([first64kBPromise, last64kBPromise])
-            .then(() => buffer);
-        });
+      return fs.readAsync(
+        fileDescriptor,
+        buffer,          // buffer to write to
+        0,               // offset in the buffer to start writing at
+        chunkSize,       // number of bytes to read
+        start            // where to begin reading from in the file
+      );
     })
-    .then(md5hex);
+    .then(() => buffer);
 }
 
 /**
