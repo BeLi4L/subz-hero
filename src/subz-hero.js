@@ -1,4 +1,5 @@
 var Promise = require('bluebird');
+var opensubtitles = require('./providers/opensubtitles');
 var subdb = require('./providers/subdb');
 var subscene = require('./providers/subscene');
 
@@ -8,6 +9,7 @@ module.exports = {
 
 const SUBTITLES_PROVIDERS = [
   subdb,
+  opensubtitles,
   subscene
 ];
 
