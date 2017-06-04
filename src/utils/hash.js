@@ -1,6 +1,6 @@
-var crypto = require('crypto');
-var Promise = require('bluebird');
-var fs = Promise.promisifyAll(require('fs'));
+const crypto = require('crypto');
+const Promise = require('bluebird');
+const fs = Promise.promisifyAll(require('fs'));
 
 module.exports = {
   computeHash: computeHash

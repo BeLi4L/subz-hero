@@ -1,7 +1,7 @@
-var Promise = require('bluebird');
-var opensubtitles = require('./providers/opensubtitles');
-var subdb = require('./providers/subdb');
-var subscene = require('./providers/subscene');
+const Promise = require('bluebird');
+const opensubtitles = require('./providers/opensubtitles');
+const subdb = require('./providers/subdb');
+const subscene = require('./providers/subscene');
 
 module.exports = {
   downloadSubtitles: downloadSubtitles

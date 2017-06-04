@@ -1,7 +1,7 @@
-var OS = require('opensubtitles-api');
-var request = require('request-promise');
+const OS = require('opensubtitles-api');
+const request = require('request-promise');
 
-var OpenSubtitles = new OS({
+const OpenSubtitles = new OS({
   useragent: 'OSTestUserAgentTemp',
   ssl: true
 });

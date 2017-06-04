@@ -1,8 +1,8 @@
-var AdmZip = require('adm-zip');
-var cheerio = require('cheerio');
-var natural = require('natural');
-var path = require('path');
-var request = require('request-promise');
+const AdmZip = require('adm-zip');
+const cheerio = require('cheerio');
+const natural = require('natural');
+const path = require('path');
+const request = require('request-promise');
 
 const SUBSCENE_URL = 'https://subscene.com';
 
@@ -62,15 +62,15 @@ function getSubtitlesList(filename) {
  * @returns {Array<SearchResult>} the list of search results
  */
 function parseSearchResults(html) {
-  var $ = cheerio.load(html);
+  const $ = cheerio.load(html);
   return $('a')
     .filter(function(index, element) {
-      var spans = $(element).find('span');
+      const spans = $(element).find('span');
       return spans.length === 2 && spans.eq(0).text().trim() === 'English';
     })
     .map(function(index, element) {
-      var title = $(element).find('span').eq(1).text().trim();
-      var url = $(element).attr('href');
+      const title = $(element).find('span').eq(1).text().trim();
+      const url = $(element).attr('href');
       return new SearchResult({
         title: title,
         url: url
@@ -87,7 +87,7 @@ function getBestSearchResult(filename) {
    * @returns {SearchResult} the "best" search result
    */
   return function(searchResults) {
-    var weightedSearchResults = searchResults
+    const weightedSearchResults = searchResults
       .map(function(searchResult) {
         return new SearchResult({
           title: searchResult.title,
@@ -120,7 +120,7 @@ function getSubtitlesPage(searchResult) {
  * @returns {string} the path to download the subtitles
  */
 function parseDownloadLink(html) {
-  var $ = cheerio.load(html);
+  const $ = cheerio.load(html);
   return $('#downloadButton').eq(0).attr('href');
 }
 
@@ -145,9 +145,11 @@ function downloadZip(href) {
  * @returns {string} the content of the first .srt file found in the given ZIP
  */
 function extractSrt(buffer) {
-  var zip = new AdmZip(buffer);
-  var srtZipEntry = zip
+  const zip = new AdmZip(buffer);
+  const srtZipEntry = zip
     .getEntries()
-    .find(zipEntry => zipEntry.entryName.endsWith('.srt'));
+    .find(zipEntry =>
+      zipEntry.entryName.endsWith('.srt')
+    );
   return zip.readAsText(srtZipEntry);
 }

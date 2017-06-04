@@ -1,5 +1,5 @@
-var request = require('request-promise');
-var hash = require('../utils/hash');
+const request = require('request-promise');
+const hash = require('../utils/hash');
 
 const SUBDB_API_URL = 'http://api.thesubdb.com';
 
