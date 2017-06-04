@@ -24,8 +24,9 @@ class SearchResult {
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-function downloadSubtitles(file) {
-  var filename = path.parse(file).name;
+async function downloadSubtitles(file) {
+  const filename = path.parse(file).name;
+
   return getSubtitlesList(filename)
     .then(parseSearchResults)
     .then(getBestSearchResult(filename))
@@ -43,7 +44,7 @@ function downloadSubtitles(file) {
  * @param {string} filename
  * @returns {Promise<string>} the HTML string, containing the search results
  */
-function getSubtitlesList(filename) {
+async function getSubtitlesList(filename) {
   return request({
     method: 'GET',
     uri: SUBSCENE_URL + '/subtitles/release',
@@ -106,7 +107,7 @@ function getBestSearchResult(filename) {
  * @param {SearchResult} searchResult
  * @returns {Promise<string>} the HTML page for the given SearchResult
  */
-function getSubtitlesPage(searchResult) {
+async function getSubtitlesPage(searchResult) {
   return request({
     method: 'GET',
     uri: SUBSCENE_URL + searchResult.url
@@ -130,7 +131,7 @@ function parseDownloadLink(html) {
  * @param {string} href
  * @returns {Promise<Buffer>} the ZIP content
  */
-function downloadZip(href) {
+async function downloadZip(href) {
   return request({
     method: 'GET',
     uri: SUBSCENE_URL + href,

@@ -1,6 +1,10 @@
 {
   "name": "subz-hero",
   "version": "0.0.1",
+  "description": "Downloads subtitles automatically",
+  "engines": {
+    "node": ">=7.6"
+  },
   "dependencies": {
     "adm-zip": "^0.4.7",
     "bluebird": "^3.4.6",

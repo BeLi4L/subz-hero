@@ -12,11 +12,10 @@ const OpenSubtitles = new OS({
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-function downloadSubtitles(file) {
-  return OpenSubtitles
-    .extractInfo(file)
-    .then(infos => infos.moviehash)
-    .then(downloadSubtitlesByHash);
+async function downloadSubtitles(file) {
+  const infos = await OpenSubtitles.extractInfo(file);
+
+  return downloadSubtitlesByHash(infos.moviehash);
 }
 
 /**
@@ -25,22 +24,20 @@ function downloadSubtitles(file) {
  * @param {string} hash - a hex string that identifies a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-function downloadSubtitlesByHash(hash) {
-  return OpenSubtitles
-    .search({
-      sublanguageid: 'eng',
-      hash: hash
-    })
-    .then(function(result) {
-      if (result.en) {
-        return request({
-          method: 'GET',
-          url: result.en.url
-        });
-      } else {
-        throw new Error(`No subtitles found for hash ${hash}`);
-      }
-    });
+async function downloadSubtitlesByHash(hash) {
+  const result = await OpenSubtitles.search({
+    sublanguageid: 'eng',
+    hash
+  });
+
+  if (!result.en) {
+    throw new Error(`No subtitles found for hash ${hash}`);
+  }
+
+  return request({
+    method: 'GET',
+    url: result.en.url
+  });
 }
 
 module.exports = {

@@ -13,24 +13,26 @@ module.exports = {
  * @returns {Promise<string>} a hex string representing the MD5 digest of the
  *                            first 64kB and the last 64kB of the given file
  */
-function computeHash(file) {
-  return getFileSize(file)
-    .then(function(filesize) {
-      var chunkSize = 64 * 1024;
-      var firstBytesPromise = readBytes({
-        file: file,
-        start: 0,
-        chunkSize: chunkSize
-      });
-      var lastBytesPromise = readBytes({
-        file: file,
-        start: filesize - chunkSize,
-        chunkSize: chunkSize
-      });
-      return Promise.all([firstBytesPromise, lastBytesPromise]);
-    })
-    .then(Buffer.concat)
-    .then(md5hex);
+async function computeHash(file) {
+  const filesize = await getFileSize(file);
+
+  const chunkSize = 64 * 1024;
+
+  const firstBytesPromise = readBytes({
+    file,
+    chunkSize,
+    start: 0,
+  });
+
+  const lastBytesPromise = readBytes({
+    file,
+    chunkSize,
+    start: filesize - chunkSize,
+  });
+
+  const [ firstBytes, lastBytes ] = await Promise.all([firstBytesPromise, lastBytesPromise]);
+
+  return md5hex(Buffer.concat(firstBytes, lastBytes));
 }
 
 /**
@@ -39,10 +41,9 @@ function computeHash(file) {
  * @param {string} file - path to a file
  * @returns {Promise<number>} the size of the given file
  */
-function getFileSize(file) {
-  return fs
-    .statAsync(file)
-    .then(stats => stats.size);
+async function getFileSize(file) {
+  const stats = await fs.statAsync(file);
+  return stats.size;
 } 
 
 /**
@@ -53,20 +54,20 @@ function getFileSize(file) {
  * @param {number} chunkSize - number of bytes to read
  * @returns {Promise<Buffer>} a buffer
  */
-function readBytes({file, start, chunkSize}) {
-  var buffer = new Buffer(chunkSize);
-  return fs
-    .openAsync(file, 'r')
-    .then(function(fileDescriptor) {
-      return fs.readAsync(
-        fileDescriptor,
-        buffer,          // buffer to write to
-        0,               // offset in the buffer to start writing at
-        chunkSize,       // number of bytes to read
-        start            // where to begin reading from in the file
-      );
-    })
-    .then(() => buffer);
+async function readBytes({file, start, chunkSize}) {
+  const buffer = new Buffer(chunkSize);
+
+  const fileDescriptor = await fs.openAsync(file, 'r');
+
+  await fs.readAsync(
+    fileDescriptor,
+    buffer,          // buffer to write to
+    0,               // offset in the buffer to start writing at
+    chunkSize,       // number of bytes to read
+    start            // where to begin reading from in the file
+  );
+
+  return buffer;
 }
 
 /**

@@ -13,10 +13,10 @@ module.exports = {
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-function downloadSubtitles(file) {
-  return hash
-    .computeHash(file)
-    .then(downloadSubtitlesByHash);
+async function downloadSubtitles(file) {
+  const digest = await hash.computeHash(file);
+
+  return downloadSubtitlesByHash(digest);
 }
 
 /**
@@ -25,7 +25,7 @@ function downloadSubtitles(file) {
  * @param {string} hash - a hex string that identifies a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-function downloadSubtitlesByHash(hash) {
+async function downloadSubtitlesByHash(hash) {
   return request({
     method: 'GET',
     uri: SUBDB_API_URL,
