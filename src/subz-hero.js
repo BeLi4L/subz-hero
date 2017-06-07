@@ -3,10 +3,6 @@ const opensubtitles = require('./providers/opensubtitles');
 const subdb = require('./providers/subdb');
 const subscene = require('./providers/subscene');
 
-module.exports = {
-  downloadSubtitles: downloadSubtitles
-};
-
 const SUBTITLES_PROVIDERS = [
   subdb,
   opensubtitles,
@@ -28,3 +24,7 @@ function downloadSubtitles(file) {
     });
   }, Promise.reject());
 }
+
+module.exports = {
+  downloadSubtitles
+};

@@ -3,10 +3,6 @@ const hash = require('../utils/hash');
 
 const SUBDB_API_URL = 'http://api.thesubdb.com';
 
-module.exports = {
-  downloadSubtitles: downloadSubtitles
-};
-
 /**
  * Download subtitles for the given file.
  * 
@@ -39,3 +35,7 @@ async function downloadSubtitlesByHash(hash) {
     }
   });
 }
+
+module.exports = {
+  downloadSubtitles
+};

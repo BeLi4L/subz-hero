@@ -6,10 +6,6 @@ const request = require('request-promise');
 
 const SUBSCENE_URL = 'https://subscene.com';
 
-module.exports = {
-  downloadSubtitles: downloadSubtitles
-};
-
 class SearchResult {
   constructor({title, url, coefficient}) {
     this.title = title;
@@ -154,3 +150,7 @@ function extractSrt(buffer) {
     );
   return zip.readAsText(srtZipEntry);
 }
+
+module.exports = {
+  downloadSubtitles
+};

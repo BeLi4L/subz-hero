@@ -2,10 +2,6 @@ const crypto = require('crypto');
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
 
-module.exports = {
-  computeHash: computeHash
-};
-
 /**
  * Create the hash used to identify a file (e.g. on SubDB).
  * 
@@ -82,3 +78,7 @@ function md5hex(buffer) {
     .update(buffer)
     .digest('hex');
 }
+
+module.exports = {
+  computeHash
+};

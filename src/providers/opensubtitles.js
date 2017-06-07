@@ -41,5 +41,5 @@ async function downloadSubtitlesByHash(hash) {
 }
 
 module.exports = {
-  downloadSubtitles: downloadSubtitles
+  downloadSubtitles
 };
