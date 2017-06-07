@@ -1,4 +1,3 @@
-const Promise = require('bluebird');
 const opensubtitles = require('./providers/opensubtitles');
 const subdb = require('./providers/subdb');
 const subscene = require('./providers/subscene');
@@ -17,12 +16,14 @@ const SUBTITLES_PROVIDERS = [
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-function downloadSubtitles(file) {
-  return SUBTITLES_PROVIDERS.reduce(function(sequencePromise, provider) {
-    return sequencePromise.catch(function() {
-      return provider.downloadSubtitles(file);
-    });
-  }, Promise.reject());
+async function downloadSubtitles(file) {
+  for (const provider of SUBTITLES_PROVIDERS) {
+    try {
+      return await provider.downloadSubtitles(file);
+    } catch (err) {
+      console.error(`Subtitles not found on ${provider}`);
+    }
+  }
 }
 
 module.exports = {
