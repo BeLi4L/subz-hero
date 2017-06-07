@@ -34,10 +34,7 @@ async function downloadSubtitlesByHash(hash) {
     throw new Error(`No subtitles found for hash ${hash}`);
   }
 
-  return request({
-    method: 'GET',
-    url: result.en.url
-  });
+  return request.get(result.en.url);
 }
 
 module.exports = {
