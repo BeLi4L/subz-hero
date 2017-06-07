@@ -9,7 +9,7 @@
     "func-style": "off",
     "func-names": "off",
     "linebreak-style": "off",
-    "no-console": "warn",
+    "no-console": "off",
     "no-empty": "off",
     "no-unused-vars": "error",
     "prefer-arrow-callback": "off",
