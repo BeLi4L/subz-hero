@@ -15,12 +15,12 @@ class SearchResult {
 }
 
 /**
- * Download subtitles for the given file.
+ * Get subtitles for the given file.
  *
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-async function downloadSubtitles(file) {
+async function getSubtitles(file) {
   const filename = path.parse(file).name;
 
   return getSubtitlesList(filename)
@@ -152,5 +152,5 @@ function extractSrt(buffer) {
 }
 
 module.exports = {
-  downloadSubtitles
+  getSubtitles
 };

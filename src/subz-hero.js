@@ -9,17 +9,17 @@ const SUBTITLES_PROVIDERS = [
 ];
 
 /**
- * Download subtitles for the given file.
- * <p>
+ * Get subtitles for the given file.
+ *
  * Call each provider one by one until we actually find subtitles.
  *
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-async function downloadSubtitles(file) {
+async function getSubtitles(file) {
   for (const provider of SUBTITLES_PROVIDERS) {
     try {
-      return await provider.downloadSubtitles(file);
+      return await provider.getSubtitles(file);
     } catch (err) {
       console.error(`Subtitles not found on ${provider}`);
     }
@@ -27,5 +27,5 @@ async function downloadSubtitles(file) {
 }
 
 module.exports = {
-  downloadSubtitles
+  getSubtitles
 };

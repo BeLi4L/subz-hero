@@ -7,24 +7,24 @@ const OpenSubtitles = new OS({
 });
 
 /**
- * Download subtitles for the given file.
+ * Get subtitles for the given file.
  * 
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-async function downloadSubtitles(file) {
+async function getSubtitles(file) {
   const infos = await OpenSubtitles.extractInfo(file);
 
-  return downloadSubtitlesByHash(infos.moviehash);
+  return getSubtitlesByHash(infos.moviehash);
 }
 
 /**
- * Download subtitles for the given hash.
+ * Get subtitles for the given hash.
  * 
  * @param {string} hash - a hex string that identifies a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-async function downloadSubtitlesByHash(hash) {
+async function getSubtitlesByHash(hash) {
   const result = await OpenSubtitles.search({
     sublanguageid: 'eng',
     hash
@@ -38,5 +38,5 @@ async function downloadSubtitlesByHash(hash) {
 }
 
 module.exports = {
-  downloadSubtitles
+  getSubtitles
 };

@@ -4,24 +4,24 @@ const hash = require('../utils/hash');
 const SUBDB_API_URL = 'http://api.thesubdb.com';
 
 /**
- * Download subtitles for the given file.
+ * Get subtitles for the given file.
  * 
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-async function downloadSubtitles(file) {
+async function getSubtitles(file) {
   const digest = await hash.computeHash(file);
 
-  return downloadSubtitlesByHash(digest);
+  return getSubtitlesByHash(digest);
 }
 
 /**
- * Download subtitles for the given hash.
+ * Get subtitles for the given hash.
  * 
  * @param {string} hash - a hex string that identifies a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-async function downloadSubtitlesByHash(hash) {
+async function getSubtitlesByHash(hash) {
   return request({
     method: 'GET',
     uri: SUBDB_API_URL,
@@ -37,5 +37,5 @@ async function downloadSubtitlesByHash(hash) {
 }
 
 module.exports = {
-  downloadSubtitles
+  getSubtitles
 };
