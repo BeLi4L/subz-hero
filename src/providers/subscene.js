@@ -152,5 +152,6 @@ function extractSrt(buffer) {
 }
 
 module.exports = {
+  name: 'Subscene',
   getSubtitles
 };

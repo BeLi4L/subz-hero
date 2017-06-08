@@ -38,5 +38,6 @@ async function getSubtitlesByHash(hash) {
 }
 
 module.exports = {
+  name: 'OpenSubtitles',
   getSubtitles
 };

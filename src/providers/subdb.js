@@ -37,5 +37,6 @@ async function getSubtitlesByHash(hash) {
 }
 
 module.exports = {
+  name: 'SubDB',
   getSubtitles
 };

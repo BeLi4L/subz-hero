@@ -25,7 +25,7 @@ async function getSubtitles(file) {
     try {
       return await provider.getSubtitles(file);
     } catch (err) {
-      console.error(`Subtitles not found on ${provider}`);
+      console.error(`Subtitles not found on ${provider.name}`);
     }
   }
 }
