@@ -9,6 +9,7 @@
     "adm-zip": "^0.4.7",
     "bluebird": "^3.4.6",
     "cheerio": "^1.0.0-rc.1",
+    "commander": "^2.9.0",
     "natural": "^0.4.0",
     "opensubtitles-api": "^4.0.0-rc2",
     "request": "^2.81.0",
