@@ -1,7 +1,19 @@
 {
   "name": "subz-hero",
   "version": "0.0.1",
-  "description": "Downloads subtitles automatically",
+  "description": "Library and CLI to downloads subtitles",
+  "keywords": [
+    "subtitles-downloader",
+    "subdb",
+    "opensubtitles",
+    "subscene"
+  ],
+  "main": "src/subz-hero.js",
+  "bin": "bin/subz-hero.js",
+  "scripts": {
+    "subz-hero": "node bin/subz-hero.js",
+    "lint": "eslint -c .eslintrc **/*.js"
+  },
   "engines": {
     "node": ">=7.6"
   },
@@ -18,5 +30,10 @@
   "devDependencies": {
     "babel-eslint": "7.2.3",
     "eslint": "3.19.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BeLi4L/subz-hero"
   }
 }
