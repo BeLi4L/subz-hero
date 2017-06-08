@@ -13,9 +13,9 @@ const OpenSubtitles = new OS({
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
 async function getSubtitles(file) {
-  const infos = await OpenSubtitles.extractInfo(file);
+  const { moviehash } = await OpenSubtitles.extractInfo(file);
 
-  return getSubtitlesByHash(infos.moviehash);
+  return getSubtitlesByHash(moviehash);
 }
 
 /**
