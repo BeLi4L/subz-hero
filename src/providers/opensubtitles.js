@@ -13,7 +13,7 @@ const OpenSubtitles = new OS({
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
 async function getSubtitles(file) {
-  const { moviehash } = await OpenSubtitles.extractInfo(file);
+  const { moviehash } = await OpenSubtitles.hash(file);
 
   return getSubtitlesByHash(moviehash);
 }
