@@ -55,6 +55,11 @@ async function downloadSubtitles(file) {
 }
 
 module.exports = {
+  providers: {
+    subdb,
+    opensubtitles,
+    subscene, 
+  },
   downloadSubtitles,
   getSubtitles
 };
