@@ -28,7 +28,7 @@ async function computeHash(file) {
 
   const [ firstBytes, lastBytes ] = await Promise.all([firstBytesPromise, lastBytesPromise]);
 
-  return md5hex(Buffer.concat(firstBytes, lastBytes));
+  return md5hex(Buffer.concat([ firstBytes, lastBytes ]));
 }
 
 /**
