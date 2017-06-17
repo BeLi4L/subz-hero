@@ -8,7 +8,7 @@ const OpenSubtitles = new OS({
 
 /**
  * Get subtitles for the given file.
- * 
+ *
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
@@ -20,7 +20,7 @@ async function getSubtitles(file) {
 
 /**
  * Get subtitles for the given hash.
- * 
+ *
  * @param {string} hash - a hex string that identifies a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
