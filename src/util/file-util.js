@@ -21,7 +21,7 @@ async function getFileSize(file) {
  * @returns {Promise<Buffer>}
  */
 async function readBytes({ file, start, chunkSize }) {
-  const buffer = new Buffer(chunkSize);
+  const buffer = Buffer.alloc(chunkSize);
 
   const fileDescriptor = await fs.openAsync(file, 'r');
 
