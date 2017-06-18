@@ -11,6 +11,7 @@
   "main": "src/subz-hero.js",
   "bin": "cli/subz-hero.js",
   "scripts": {
+    "test": "mocha test/**/*.spec.js",
     "subz-hero": "node cli/subz-hero.js",
     "lint": "eslint -c .eslintrc **/*.js"
   },
@@ -29,7 +30,10 @@
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
-    "eslint": "3.19.0"
+    "chai": "4.0.2",
+    "chai-as-promised": "7.0.0",
+    "eslint": "3.19.0",
+    "mocha": "3.4.2"
   },
   "license": "MIT",
   "repository": {
