@@ -25,7 +25,7 @@ async function readBytes({ file, start, chunkSize }) {
 
   const fileDescriptor = await fs.openAsync(file, 'r');
 
-  await fs.readAsync(
+  const bytesRead = await fs.readAsync(
     fileDescriptor,
     buffer,          // buffer to write to
     0,               // offset in the buffer to start writing at
@@ -33,7 +33,8 @@ async function readBytes({ file, start, chunkSize }) {
     start            // where to begin reading from in the file
   );
 
-  return buffer;
+  // Slice the buffer in case chunkSize > fileSize - start
+  return buffer.slice(0, bytesRead);
 }
 
 module.exports = {
