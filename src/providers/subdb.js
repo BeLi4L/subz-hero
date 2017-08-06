@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const request = require('request-promise');
 const fileUtil = require('../util/file-util');
 
-const SUBDB_API_URL = 'http://api.thesubdb.com';
+const SUBDB_API_URL = process.env.SUBDB_API_URL || 'http://api.thesubdb.com';
 
 /**
  * Get subtitles for the given file.

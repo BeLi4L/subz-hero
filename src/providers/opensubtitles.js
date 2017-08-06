@@ -1,9 +1,13 @@
 const OS = require('opensubtitles-api');
 const request = require('request-promise');
 
+const OS_API_URL = process.env.OS_API_URL || 'https://api.opensubtitles.org:443/xml-rpc';
+const OS_UA = process.env.OS_UA || 'OSTestUserAgentTemp'
+
 const OpenSubtitles = new OS({
-  useragent: 'OSTestUserAgentTemp',
-  ssl: true
+  useragent: OS_UA,
+  endpoint: OS_API_URL,
+  ssl: OS_API_URL.indexOf('https') === 0
 });
 
 /**
