@@ -4,7 +4,7 @@ const natural = require('natural');
 const path = require('path');
 const request = require('request-promise');
 
-const SUBSCENE_URL = 'https://subscene.com';
+const SUBSCENE_URL = process.env.SUBSCENE_URL || 'https://subscene.com';
 
 class SearchResult {
   constructor({title, url, coefficient}) {
