@@ -73,5 +73,6 @@ async function hash (file) {
 
 module.exports = {
   name: 'SubDB',
-  getSubtitles
+  getSubtitles,
+  getSubtitlesByHash
 }
