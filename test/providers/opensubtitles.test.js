@@ -7,14 +7,23 @@ const TIMEOUT_IN_MS = 30000
 
 describe('opensubtitles', () => {
   describe('#getSubtitlesByHash', () => {
-    it('should find "I Origins" subtitles', async () => {
-      const movieHash = 'df2273eb4d8adad44d870f553d3b8788'
-      const testfile = path.resolve(__dirname, 'resources/I Origins.srt')
+    it('should find "Inside out" subtitles', async () => {
+      const movieHash = '23ef5271db77ed0e'
+      const testfile = path.resolve(__dirname, 'resources/Inside Out.srt')
 
-      const expectedSrt = await fs.readFileAsync(testfile, 'utf-8')
+      const expectedSanitizedSrt = await fs.readFileAsync(testfile, 'utf-8')
+      const expectedLinesCount = 6140
       const actualSrt = await opensubtitles.getSubtitlesByHash(movieHash)
 
-      expect(actualSrt).toBe(expectedSrt)
+      // Ignore the last subtitle, because OpenSubtitles
+      // adds a final subtitle containing a random ad,
+      // e.g. "-= www.OpenSubtitles.org =-".
+      const actualSanitizedSrt = actualSrt
+        .split('\n')
+        .slice(0, expectedLinesCount + 1)
+        .join('\n')
+
+      expect(actualSanitizedSrt).toBe(expectedSanitizedSrt)
     }, TIMEOUT_IN_MS)
 
     it('should fail on a bad hash', async () => {
