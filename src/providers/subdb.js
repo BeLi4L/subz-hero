@@ -12,7 +12,7 @@ const SUBDB_API_URL = 'http://api.thesubdb.com'
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
 async function getSubtitles (file) {
-  const digest = await computeHash(file)
+  const digest = await hash(file)
 
   return getSubtitlesByHash(digest)
 }
@@ -45,7 +45,7 @@ async function getSubtitlesByHash (hash) {
  * @returns {Promise<string>} a hex string representing the MD5 digest of the
  *                            first 64kB and the last 64kB of the given file
  */
-async function computeHash (file) {
+async function hash (file) {
   const filesize = await fileUtil.getFileSize(file)
 
   const chunkSize = 64 * 1024
