@@ -11,7 +11,7 @@
   "main": "src/subz-hero.js",
   "bin": "cli/subz-hero.js",
   "scripts": {
-    "lint": "eslint -c .eslintrc **/*.js",
+    "lint": "standard",
     "subz-hero": "node cli/subz-hero.js",
     "test": "jest --color"
   },
@@ -30,8 +30,14 @@
   },
   "devDependencies": {
     "babel-eslint": "8.2.1",
-    "eslint": "4.17.0",
-    "jest": "22.2.2"
+    "jest": "22.2.2",
+    "standard": "10.0.3"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "env": [
+      "jest"
+    ]
   },
   "license": "MIT",
   "repository": {
