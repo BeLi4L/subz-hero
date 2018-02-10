@@ -1,3 +1,0 @@
-This file is used by file-util.spec.js, for test purposes.
-
-Any modification to this file may impact file-util tests.

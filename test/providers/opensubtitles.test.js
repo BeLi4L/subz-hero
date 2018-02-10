@@ -9,7 +9,7 @@ describe('opensubtitles', () => {
   describe('#getSubtitlesByHash', () => {
     it('should find "Inside out" subtitles', async () => {
       const movieHash = '23ef5271db77ed0e'
-      const testfile = path.resolve(__dirname, 'resources/Inside Out.srt')
+      const testfile = path.resolve(__dirname, '../resources/Inside Out.srt')
 
       const expectedSanitizedSrt = await fs.readFileAsync(testfile, 'utf-8')
       const expectedLinesCount = 6140

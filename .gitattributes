@@ -1,0 +1,3 @@
+# Prevent test resources from being normalized
+# because OS-dependent EOL characters may break tests...
+/test/resources/* -text

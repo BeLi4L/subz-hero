@@ -1,7 +1,7 @@
 const path = require('path')
 const fileUtil = require('../../src/util/file-util')
 
-const testfile = path.resolve(__dirname, 'test-file.txt')
+const testfile = path.resolve(__dirname, '../resources/test-file.txt')
 const testfileSize = 119
 
 describe('file-util', () => {
