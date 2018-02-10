@@ -12,18 +12,15 @@ describe('opensubtitles', () => {
       const testfile = path.resolve(__dirname, '../resources/Inside Out.srt')
 
       const expectedSanitizedSrt = await fs.readFileAsync(testfile, 'utf-8')
-      const expectedLinesCount = 6140
+      const expectedSanitizedSrtLines = expectedSanitizedSrt.split(/\r?\n/)
       const actualSrt = await opensubtitles.getSubtitlesByHash(movieHash)
 
       // Ignore the last subtitle, because OpenSubtitles
       // adds a final subtitle containing a random ad,
       // e.g. "-= www.OpenSubtitles.org =-".
-      const actualSanitizedSrt = actualSrt
-        .split('\n')
-        .slice(0, expectedLinesCount + 1)
-        .join('\n')
+      const actualSanitizedSrtLines = actualSrt.split(/\r?\n/).slice(0, expectedSanitizedSrtLines.length)
 
-      expect(actualSanitizedSrt).toBe(expectedSanitizedSrt)
+      expect(actualSanitizedSrtLines).toEqual(expectedSanitizedSrtLines)
     }, TIMEOUT_IN_MS)
 
     it('should fail on a bad hash', async () => {
