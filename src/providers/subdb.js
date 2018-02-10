@@ -1,9 +1,9 @@
-const crypto = require('crypto');
-const Promise = require('bluebird');
-const request = require('request-promise');
-const fileUtil = require('../util/file-util');
+const crypto = require('crypto')
+const Promise = require('bluebird')
+const request = require('request-promise')
+const fileUtil = require('../util/file-util')
 
-const SUBDB_API_URL = 'http://api.thesubdb.com';
+const SUBDB_API_URL = 'http://api.thesubdb.com'
 
 /**
  * Get subtitles for the given file.
@@ -11,10 +11,10 @@ const SUBDB_API_URL = 'http://api.thesubdb.com';
  * @param {string} file - path to a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-async function getSubtitles(file) {
-  const hash = await computeHash(file);
+async function getSubtitles (file) {
+  const digest = await computeHash(file)
 
-  return getSubtitlesByHash(hash);
+  return getSubtitlesByHash(digest)
 }
 
 /**
@@ -23,7 +23,7 @@ async function getSubtitles(file) {
  * @param {string} hash - a hex string that identifies a file
  * @returns {Promise<string>} the subtitles, formatted as .srt
  */
-async function getSubtitlesByHash(hash) {
+async function getSubtitlesByHash (hash) {
   return request({
     method: 'GET',
     uri: SUBDB_API_URL,
@@ -35,7 +35,7 @@ async function getSubtitlesByHash(hash) {
     headers: {
       'User-Agent': 'SubDB/1.0 (subz-hero/0.1; https://github.com/BeLi4L/subz-hero)'
     }
-  });
+  })
 }
 
 /**
@@ -45,33 +45,33 @@ async function getSubtitlesByHash(hash) {
  * @returns {Promise<string>} a hex string representing the MD5 digest of the
  *                            first 64kB and the last 64kB of the given file
  */
-async function computeHash(file) {
-  const filesize = await fileUtil.getFileSize(file);
+async function computeHash (file) {
+  const filesize = await fileUtil.getFileSize(file)
 
-  const chunkSize = 64 * 1024;
+  const chunkSize = 64 * 1024
 
   const firstBytesPromise = fileUtil.readBytes({
     file,
     chunkSize,
-    start: 0,
-  });
+    start: 0
+  })
 
   const lastBytesPromise = fileUtil.readBytes({
     file,
     chunkSize,
-    start: filesize - chunkSize,
-  });
+    start: filesize - chunkSize
+  })
 
-  const [ firstBytes, lastBytes ] = await Promise.all([firstBytesPromise, lastBytesPromise]);
+  const [ firstBytes, lastBytes ] = await Promise.all([firstBytesPromise, lastBytesPromise])
 
   return crypto
     .createHash('md5')
     .update(firstBytes)
     .update(lastBytes)
-    .digest('hex');
+    .digest('hex')
 }
 
 module.exports = {
   name: 'SubDB',
   getSubtitles
-};
+}

@@ -1,5 +1,5 @@
-const Promise = require('bluebird');
-const fs = Promise.promisifyAll(require('fs'));
+const Promise = require('bluebird')
+const fs = Promise.promisifyAll(require('fs'))
 
 /**
  * Retrieve the size of a file.
@@ -7,9 +7,9 @@ const fs = Promise.promisifyAll(require('fs'));
  * @param {string} file - path to a file
  * @returns {Promise<number>} the size of the given file
  */
-async function getFileSize(file) {
-  const { size } = await fs.statAsync(file);
-  return size;
+async function getFileSize (file) {
+  const { size } = await fs.statAsync(file)
+  return size
 }
 
 /**
@@ -20,10 +20,10 @@ async function getFileSize(file) {
  * @param {number} chunkSize - number of bytes to read
  * @returns {Promise<Buffer>}
  */
-async function readBytes({ file, start, chunkSize }) {
-  const buffer = Buffer.alloc(chunkSize);
+async function readBytes ({ file, start, chunkSize }) {
+  const buffer = Buffer.alloc(chunkSize)
 
-  const fileDescriptor = await fs.openAsync(file, 'r');
+  const fileDescriptor = await fs.openAsync(file, 'r')
 
   const bytesRead = await fs.readAsync(
     fileDescriptor,
@@ -31,13 +31,13 @@ async function readBytes({ file, start, chunkSize }) {
     0,               // offset in the buffer to start writing at
     chunkSize,       // number of bytes to read
     start            // where to begin reading from in the file
-  );
+  )
 
   // Slice the buffer in case chunkSize > fileSize - start
-  return buffer.slice(0, bytesRead);
+  return buffer.slice(0, bytesRead)
 }
 
 module.exports = {
   getFileSize,
-  readBytes,
-};
+  readBytes
+}
