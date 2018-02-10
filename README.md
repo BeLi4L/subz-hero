@@ -1,5 +1,4 @@
-Subz-hero
-=========
+# Subz-hero · [![Build Status](https://travis-ci.org/BeLi4L/subz-hero.svg?branch=master)](https://travis-ci.org/BeLi4L/subz-hero)
 
 A library / CLI to download subtitles for movies and series.
 
