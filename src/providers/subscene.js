@@ -22,7 +22,16 @@ class SearchResult {
  */
 async function getSubtitles (file) {
   const filename = path.parse(file).name
+  return getSubtitlesByFilename(filename)
+}
 
+/**
+ * Get subtitles for the given filename.
+ *
+ * @param {string} filename
+ * @returns {Promise<string>} the subtitles, formatted as .srt
+ */
+async function getSubtitlesByFilename (filename) {
   // TODO: revamp this + add unit tests
   return getSubtitlesList(filename)
     .then(parseSearchResults)
@@ -152,5 +161,6 @@ function extractSrt (buffer) {
 
 module.exports = {
   name: 'Subscene',
-  getSubtitles
+  getSubtitles,
+  getSubtitlesByFilename
 }
