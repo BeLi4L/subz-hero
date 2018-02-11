@@ -36,7 +36,17 @@ async function readBytes ({ file, start, chunkSize }) {
   return buffer.slice(0, bytesRead)
 }
 
+/**
+ * @param {string} path
+ * @returns {Promise<boolean>} true if the given path describes a directory
+ */
+async function isDirectory (path) {
+  const stats = await fs.stat(path)
+  return stats.isDirectory()
+}
+
 module.exports = {
   getFileSize,
+  isDirectory,
   readBytes
 }

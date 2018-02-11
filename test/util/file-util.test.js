@@ -1,7 +1,8 @@
 const path = require('path')
 const fileUtil = require('../../src/util/file-util')
 
-const testfile = path.resolve(__dirname, '../resources/test-file.txt')
+const resourcesDirectory = path.resolve(__dirname, '../resources')
+const testfile = path.resolve(resourcesDirectory, 'test-file.txt')
 const testfileSize = 119
 
 describe('file-util', () => {
@@ -13,6 +14,18 @@ describe('file-util', () => {
 
     it('should throw an error if the file does not exist', async() => {
       await expect(fileUtil.getFileSize('missing_file')).rejects.toThrow()
+    })
+  })
+
+  describe('#isDirectory', () => {
+    it('should return true for a directory', async () => {
+      const isDirectory = await fileUtil.isDirectory(resourcesDirectory)
+      expect(isDirectory).toBe(true)
+    })
+
+    it('should return false for a regular file', async () => {
+      const isDirectory = await fileUtil.isDirectory(testfile)
+      expect(isDirectory).toBe(false)
     })
   })
 
