@@ -1,5 +1,4 @@
 const crypto = require('crypto')
-const Promise = require('bluebird')
 const request = require('request-promise')
 const fileUtil = require('../util/file-util')
 

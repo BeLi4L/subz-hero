@@ -1,5 +1,4 @@
-const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs'))
+const fs = require('fs-extra')
 const path = require('path')
 const opensubtitles = require('../../src/providers/opensubtitles')
 
@@ -11,7 +10,7 @@ describe('opensubtitles', () => {
       const movieHash = '23ef5271db77ed0e'
       const testfile = path.resolve(__dirname, '../resources/Inside Out.srt')
 
-      const expectedSanitizedSrt = await fs.readFileAsync(testfile, 'utf-8')
+      const expectedSanitizedSrt = await fs.readFile(testfile, 'utf-8')
       const expectedSanitizedSrtLines = expectedSanitizedSrt.split(/\r?\n/)
       const actualSrt = await opensubtitles.getSubtitlesByHash(movieHash)
 

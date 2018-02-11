@@ -1,5 +1,4 @@
-const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs'))
+const fs = require('fs-extra')
 const path = require('path')
 const subdb = require('../../src/providers/subdb')
 
@@ -9,7 +8,7 @@ describe('subdb', () => {
       const movieHash = 'df2273eb4d8adad44d870f553d3b8788'
       const testfile = path.resolve(__dirname, '../resources/I Origins.srt')
 
-      const expectedSrt = await fs.readFileAsync(testfile, 'utf-8')
+      const expectedSrt = await fs.readFile(testfile, 'utf-8')
       const actualSrt = await subdb.getSubtitlesByHash(movieHash)
 
       expect(actualSrt).toBe(expectedSrt)

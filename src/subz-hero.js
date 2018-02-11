@@ -1,6 +1,5 @@
 const path = require('path')
-const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs'))
+const fs = require('fs-extra')
 
 const opensubtitles = require('./providers/opensubtitles')
 const subdb = require('./providers/subdb')
@@ -44,7 +43,7 @@ async function downloadSubtitles (file) {
 
   const subtitlesFile = path.format({ dir, name, ext: '.srt' })
 
-  await fs.writeFileAsync(subtitlesFile, subtitles)
+  await fs.writeFile(subtitlesFile, subtitles)
 
   return subtitlesFile
 }

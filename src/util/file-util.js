@@ -1,5 +1,4 @@
-const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs'))
+const fs = require('fs-extra')
 
 /**
  * Retrieve the size of a file.
@@ -8,7 +7,7 @@ const fs = Promise.promisifyAll(require('fs'))
  * @returns {Promise<number>} the size of the given file
  */
 async function getFileSize (file) {
-  const { size } = await fs.statAsync(file)
+  const { size } = await fs.stat(file)
   return size
 }
 
@@ -23,9 +22,9 @@ async function getFileSize (file) {
 async function readBytes ({ file, start, chunkSize }) {
   const buffer = Buffer.alloc(chunkSize)
 
-  const fileDescriptor = await fs.openAsync(file, 'r')
+  const fileDescriptor = await fs.open(file, 'r')
 
-  const bytesRead = await fs.readAsync(
+  const { bytesRead } = await fs.read(
     fileDescriptor,
     buffer,          // buffer to write to
     0,               // offset in the buffer to start writing at
