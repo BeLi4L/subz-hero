@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+; MKV files
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.mkv\shell\Download subtitles\command]
+@="cmd.exe /c subz-hero \"%L\""
+
+; Directories
+[HKEY_CLASSES_ROOT\Directory\shell\Download subtitles\command]
+@="cmd.exe /c subz-hero \"%L\""

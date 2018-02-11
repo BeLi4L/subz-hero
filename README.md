@@ -26,10 +26,15 @@ will download subtitles and create a `Interstellar.srt` file.
 
 ## How to add a 'Download subtitles' entry in Windows context menu
 
-If you want to be able to download subtitles with a simple right click on a file:
+Clone this repo, open the `scripts` directory, and run the script called `Add to context menu.reg`.
+
+Or if you want to do this manually:
 
 - open regedit.exe
 - expand HKEY_CLASSES_ROOT/SystemFileAssociations
-- for each video file extension (mkv, avi, mp4, etc.), you need to add a key, as follows: for instance for mkv files, go to .mkv, create the Shell sub-folder if it is not present, right-click on Shell > New > Key, call it 'Download subtitles'. Then, similarly create a new key under the 'Download subtitles' folder called 'command', double click on default value and in its data, write: subz-hero "%L"
-
-<!-- TODO: create a .reg script to do this automatically for all video types -->
+- for each video file extension (mkv, avi, mp4, etc.), you need to add a key, as follows: 
+  * go to .mkv
+  * right click > New > Key, call it `shell`
+  * right-click on `shell` > New > Key, call it `Download subtitles` (that's the label in the context menu)
+  * right-click on `Download subtitles` > New > Key, call it `command`
+  * double click on default value and in its data, write: `cmd.exe /c subz-hero "%L"`
