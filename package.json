@@ -1,6 +1,6 @@
 {
   "name": "subz-hero",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Library and CLI to download subtitles",
   "keywords": [
     "subtitles-downloader",
