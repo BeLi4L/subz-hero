@@ -2,6 +2,7 @@
 
 const commander = require('commander')
 const fs = require('fs-extra')
+const path = require('path')
 const fileUtil = require('../src/util/file-util')
 const subzHero = require('../src/subz-hero')
 
@@ -12,13 +13,19 @@ const args = commander.parse(process.argv).args
 
 args.forEach(downloadSubtitles)
 
-async function downloadSubtitles (path) {
-  if (await fileUtil.isDirectory(path)) {
-    const files = await fs.readdir(path)
-
-    // TODO: DL by batches, to prevent too many API requests
-    files.forEach(subzHero.downloadSubtitles)
+async function downloadSubtitles (file) {
+  if (await fileUtil.isDirectory(file)) {
+    await downloadSubtitlesInDirectory(file)
   } else {
-    await subzHero.downloadSubtitles(path)
+    await subzHero.downloadSubtitles(file)
   }
+}
+
+async function downloadSubtitlesInDirectory (directory) {
+  const filenames = await fs.readdir(directory)
+
+  const paths = filenames.map(file => path.resolve(directory, file))
+
+  // TODO: DL by batches, to prevent too many API requests
+  paths.forEach(subzHero.downloadSubtitles)
 }
